@@ -1,0 +1,82 @@
+a) Language Specification:
+
+1.Language Definition:
+1.1 Alphabet:
+ -Uppercase and lowercase letters: A-Z, a-z.
+ -Underline character: _ .
+ -Decimal digits: 0-9.
+
+1.2 Lexical elements:
+ a. Special Symbols (Operators and Separators)
+  -Operators: +, -, *, /, =, <, >, ==.
+  -Separators: (, ), {, }, :, , , ;, newline.
+
+ b. Reserved Words:
+  -def, return, if, else, while, for, in, True, False, print, input
+
+ c. IDENTIFIERS:
+  -Identifiers are sequence of letters, digits and underscores, starting with a letter or underscore.
+  -Rule:
+	identifier ::= letter | "_" {letter | digit | "_"}
+	letter ::= "A" | "B" | ... | "Z" | "a" | ... | "z"
+	digit ::= "0" | "1" | ... | "9"
+
+ d. Constants:
+  1. Integer Constants:
+  -Positive or negative whole numbers.
+  -Rule:
+	integer_const ::= [+|-} digit{digit}
+  2.String Constants:
+  -Enclosed in double quotes " or single quotes '.
+  -Rule:
+	string_const ::= '"' string_body '"' | "'" string_body "'"
+	string_body ::= char{char}
+	char ::= letter | digit
+  3.Boolean Constants:
+  -True, False.
+ 
+ 2.Syntax:
+  -The words - predefined tokens are specified between " and ":
+	2.1. General structure:
+	  program ::= stmtlist
+	2.2 Statements:
+	  stmtlist ::= stmt | stmt newline stmtlist
+	  stmt ::= simplstmt | structstmt
+	  simplstmt ::= assignstmt | iostmt | returnstmt
+		assignstmt ::= IDENTIFIER "=" expression
+		returnstmt ::= "return" expression
+		iostmt ::= "print" "(" expression ")" | "input" "(" ")" 
+	  structstmt ::= ifstmt | whilestmt | functionstmt
+		ifstmt ::= "if" condition ":" stmtlist ["else" ":" stmtlist]
+		whilestmt ::= "while" condition ":" stmtlist
+		functionstmt ::+ "def" IDENTIFIER "(" ")" ":" stmtlist
+	2.3 Conditions:
+	  condition ::= expression RELATION expression
+	  RELATION ::= "<" | ">" | "==" 
+	2.4 EXpression:
+	  expression ::= expression "+" term | expression "-" term | term
+	  term ::= term "*" factor | term "/" factor | term "%" factor | factor
+	  factor ::= "(" expression ")" | IDENTIFIER | integer_const | string_const | boolean_const
+	2.5 user defined type
+	  class_def ::= "class" IDENTIFIER {"("} IDENTIFIER {")"} ":" stmtlist
+	  method_def ::= "def" IDENTIFIER "(" [PARAMETERS] ")" ":" stmtlist
+	  
+b) Find the first K prime numbers 
+def find_primes():
+    k = int(input("Write a number: "))
+    num = 2
+    count = 0
+    while count < k:
+        isPrime = True
+        i = 2
+        while i < num:
+            if num % i == 0:
+                isPrime = False
+                break
+            i = i + 1
+        if isPrime:
+            print(num)
+            count = count + 1
+        num = num + 1
+
+find_primes()
