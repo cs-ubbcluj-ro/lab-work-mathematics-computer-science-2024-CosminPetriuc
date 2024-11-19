@@ -1,0 +1,3 @@
+flex lex_analizer.l
+gcc lex.yy.c -o lex_analizer -lfl
+./lex_analizer program.txt

@@ -1,0 +1,4 @@
+def example_function():
+    x = 5 + 10
+    print(x)
+    return x
