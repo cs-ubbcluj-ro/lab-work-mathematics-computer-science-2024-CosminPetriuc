@@ -1,0 +1,26 @@
+<FA>              ::= "states:" <state_list> "\n"
+                      "alphabet:" <alphabet_list> "\n"
+                      <transition_list> "\n"
+                      "start:" <start_state> "\n"
+                      "final:" <final_state_list> "\n" ;
+
+<state_list>      ::= <state> { "," <state> } ;
+<alphabet_list>   ::= <symbol> { "," <symbol> } ;
+
+<transition_list> ::= <transition> { <transition> } ;
+<transition>      ::= <state> "," <symbol> "->" <state> ;
+
+<final_state_list>::= <state> { "," <state> } ;
+
+<start_state>     ::= <state> ;
+
+<state>           ::= <identifier> ;
+<symbol>          ::= <character> ;
+
+<identifier>      ::= <letter> { <letter> | <digit> } ;
+<character>       ::= <letter> | <digit> | <special_character> ;
+
+<special_character>::= any printable character except "," | "->" ;
+
+<letter>          ::= "a" | "b" | ... | "z" | "A" | "B" | ... | "Z" ;
+<digit>           ::= "0" | "1" | ... | "9" ;
