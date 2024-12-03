@@ -1,0 +1,133 @@
+Set of Terminals (Σ)
+Reserved Words:
+
+"def", "return", "if", "else", "while", "for", "in", "True", "False", "print", "input"
+
+Operators:
+"+", "-", "*", "/", "=", "<", ">", "==", "%"
+
+Separators:
+"(", ")", "{", "}", ":", ",", ";", newline
+
+Identifiers:
+Represented as a sequence of letters, digits, and underscores, starting with a letter or underscore.
+
+Constants:
+Integer Constants (intconst):
+Positive or negative whole numbers (e.g., +42, -3, 0).
+
+String Constants (string):
+Enclosed in double quotes " or single quotes '.
+
+Boolean Constants (boolconst):
+"True", "False"
+
+
+Set of Non-terminals (N)
+Lexical Elements:
+identifier, letter_digit_sequence, integer, integer_nonzero, digit_nonzero, string, string_content, char, boolconst.
+
+Program Structure:
+program, stmtlist, stmt, simplstmt, structstmt.
+
+Assignments and Expressions:
+assignstmt, iostmt, expression, term, factor.
+
+Conditions:
+condition, relation.
+
+Structures:
+ifstmt, whilestmt, functionstmt.
+
+
+
+Production(P)
+Program:
+
+program ::= stmtlist
+
+
+Statement List:
+
+stmtlist ::= stmt
+           | stmt newline stmtlist
+           | ε
+
+
+Statements:
+
+stmt ::= simplstmt
+       | structstmt
+
+simplstmt ::= assignstmt
+            | iostmt
+            | returnstmt
+
+assignstmt ::= identifier "=" expression
+iostmt ::= "print" "(" expression ")"
+         | "input" "(" ")"
+returnstmt ::= "return" expression
+
+
+Structured Statements:
+
+structstmt ::= ifstmt
+             | whilestmt
+             | functionstmt
+
+ifstmt ::= "if" condition ":" stmtlist
+         | "if" condition ":" stmtlist "else" ":" stmtlist
+whilestmt ::= "while" condition ":" stmtlist
+functionstmt ::= "def" identifier "(" ")" ":" stmtlist
+
+
+Conditions:
+
+condition ::= expression relation expression
+relation ::= "<"
+           | ">"
+           | "=="
+
+
+Expressions:
+
+expression ::= expression "+" term
+             | expression "-" term
+             | term
+term ::= term "*" factor
+       | term "/" factor
+       | term "%" factor
+       | factor
+factor ::= "(" expression ")"
+         | identifier
+         | intconst
+         | string
+         | boolconst
+
+
+Identifiers and Lexical Elements:
+
+identifier ::= letter | "_" letter_digit_sequence
+letter_digit_sequence ::= letter
+                        | digit
+                        | letter_digit_sequence letter
+                        | letter_digit_sequence digit
+letter ::= "a" | "b" | ... | "z" | "A" | "B" | ... | "Z"
+digit ::= "0" | "1" | ... | "9"
+
+
+Constants:
+
+intconst ::= "+" integer | "-" integer | integer
+integer ::= "0" | integer_nonzero
+integer_nonzero ::= digit_nonzero integer_end
+integer_end ::= ε | digit integer_end
+digit_nonzero ::= "1" | "2" | ... | "9"
+
+string ::= '"' string_content '"' | "'" string_content "'"
+string_content ::= ε | char string_content
+char ::= letter | digit
+
+boolconst ::= "True" | "False"
+
+
